@@ -8,8 +8,6 @@ Most other tools are either simple timers (which reload while you are typing) or
 
 **This extension is different.** It lives in your browser, works on every project automatically, and reloads instantly when your app updates.
 
-![Extension Icon](icons/icon16.png)
-
 ## 🏆 Why is this better than a Plugin?
 
 There are Bubble plugins that handle auto-reloading, but they have a major downside: **you have to install and configure them for every new app you build.**
