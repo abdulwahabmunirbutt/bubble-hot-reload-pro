@@ -8,7 +8,7 @@ Most other tools are either simple timers (which reload while you are typing) or
 
 **This extension is different.** It lives in your browser, works on every project automatically, and reloads instantly when your app updates.
 
-![Extension Icon](icons/icon128.png)
+![Extension Icon](icons/icon16.png)
 
 ## 🏆 Why is this better than a Plugin?
 
@@ -39,14 +39,13 @@ It’s pretty simple:
 
 ## 📥 How to Install (Open Source)
 
-Since this is an open-source project, you can load it directly into Chrome for free:
-
-1.  **Download** this repository (Click **Code** -> **Download ZIP**) and unzip it.
-2.  Open Chrome and paste this into the address bar: `chrome://extensions`
-3.  Turn on **Developer Mode** (top right switch).
-4.  Click the **Load Unpacked** button (top left).
-5.  Select the folder you just unzipped.
-6.  **That's it!** Open your Bubble preview and give it a try.
+1.  👉 **[Click here to Download the Extension ZIP](https://github.com/abdulwahabmunirbutt/bubble-hot-reload-pro/releases/download/v1.0.0/Bubble-Hot-Reload-Pro-v1.0.zip)**
+2.  **Unzip** the downloaded file on your computer.
+3.  Open Chrome and paste this into the address bar: `chrome://extensions`
+4.  Turn on **Developer Mode** (top right switch).
+5.  Click the **Load Unpacked** button (top left).
+6.  Select the folder you just unzipped.
+7.  **That's it!** Open your Bubble preview and give it a try.
 
 ## ⚙️ Settings
 
