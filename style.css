@@ -1,0 +1,148 @@
+#bubbleHotReloadBadge {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: #666;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    z-index: 999999999;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+#bubbleHotReloadBadge.pulse {
+    animation: pulseAnim 1s infinite;
+}
+
+@keyframes pulseAnim {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.bhr-toast {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #323232;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all 0.3s ease;
+    z-index: 999999999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.bhr-bubble {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    bottom: 20px;
+    right: 60px;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.bhr-bubble.animate {
+    animation: bhr-bubbleIsland 0.8s forwards;
+}
+
+@keyframes bhr-bubbleIsland {
+    0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateY(-10px) scale(1.1);
+        opacity: 0.9;
+    }
+
+    60% {
+        transform: translateY(-25px) scale(0.9);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateY(-50px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.bhr-settings-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background: #202020;
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    z-index: 999999999;
+}
+
+.bhr-settings-panel h3 {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.bhr-settings-panel label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.bhr-settings-panel input[type=number],
+.bhr-settings-panel select {
+    width: 100%;
+    padding: 4px 6px;
+    margin: 2px 0 10px 0;
+    border-radius: 4px;
+    border: none;
+}
+
+.bhr-settings-panel input[type=checkbox] {
+    margin-right: 6px;
+}
+
+.bhr-btn {
+    padding: 6px 12px;
+    margin-left: 4px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.bhr-btn-primary {
+    background-color: #1e8e3e;
+    color: #fff;
+}
+
+.bhr-btn-muted {
+    background-color: #555;
+    color: #fff;
+}
