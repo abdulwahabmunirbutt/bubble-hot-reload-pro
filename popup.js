@@ -1,45 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const themeSelect = document.getElementById('theme');
-    const body = document.body;
+    const toggles = {
+        sound: document.getElementById('sound'),
+        badge: document.getElementById('badge'),
+        bubble: document.getElementById('bubble')
+    };
+    const forceReloadBtn = document.getElementById('forceReload');
+    const statusBadge = document.getElementById('connectionStatus');
 
-    function applyTheme(theme) {
-        if (theme === 'light') {
-            body.classList.add('light-theme');
-        } else {
-            body.classList.remove('light-theme');
+    // Load saved settings
+    chrome.storage.sync.get({ sound: true, badge: true, bubble: true }, (items) => {
+        if (toggles.sound) toggles.sound.checked = items.sound;
+        if (toggles.badge) toggles.badge.checked = items.badge;
+        if (toggles.bubble) toggles.bubble.checked = items.bubble;
+    });
+
+    // Handle toggle changes (Instant Save)
+    Object.keys(toggles).forEach(key => {
+        if (toggles[key]) {
+            toggles[key].addEventListener('change', () => {
+                const settings = {};
+                settings[key] = toggles[key].checked;
+                chrome.storage.sync.set(settings);
+            });
         }
-    }
-
-    chrome.storage.sync.get({
-        theme: 'dark',
-        sound: true,
-        badge: true,
-        bubble: true
-    }, (items) => {
-        themeSelect.value = items.theme;
-        document.getElementById('sound').checked = items.sound;
-        document.getElementById('badge').checked = items.badge;
-        document.getElementById('bubble').checked = items.bubble;
-
-        applyTheme(items.theme);
     });
 
-    themeSelect.addEventListener('change', (e) => {
-        applyTheme(e.target.value);
-    });
+    // Handle Force Reload
+    if (forceReloadBtn) {
+        forceReloadBtn.addEventListener('click', () => {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs[0]) {
+                    chrome.tabs.sendMessage(tabs[0].id, { type: "FORCE_RELOAD" });
 
-    document.getElementById('save').addEventListener('click', () => {
-        const settings = {
-            theme: themeSelect.value,
-            sound: document.getElementById('sound').checked,
-            badge: document.getElementById('badge').checked,
-            bubble: document.getElementById('bubble').checked
-        };
-
-        chrome.storage.sync.set(settings, () => {
-            const status = document.getElementById('status');
-            status.textContent = 'Settings Saved!';
-            setTimeout(() => status.textContent = '', 1500);
+                    // Visual feedback on button
+                    const originalText = forceReloadBtn.innerHTML;
+                    forceReloadBtn.innerHTML = "✅ Reloading...";
+                    forceReloadBtn.disabled = true;
+                    setTimeout(() => {
+                        forceReloadBtn.innerHTML = originalText;
+                        forceReloadBtn.disabled = false;
+                    }, 1000);
+                }
+            });
         });
-    });
+    }
 });

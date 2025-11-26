@@ -1,148 +1,184 @@
+/* --- Smart Badge --- */
 #bubbleHotReloadBadge {
     position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    background: #666;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    z-index: 999999999;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 99px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    cursor: grab;
+    min-width: max-content;
+}
+
+#bubbleHotReloadBadge:hover {
+    background: rgba(30, 30, 30, 0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#bubbleHotReloadBadge:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+}
+
+.bhr-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #f5a623;
+    box-shadow: 0 0 12px rgba(245, 166, 35, 0.6);
     transition: all 0.3s ease;
 }
 
-#bubbleHotReloadBadge.pulse {
-    animation: pulseAnim 1s infinite;
+.bhr-text {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
-@keyframes pulseAnim {
+/* --- Edit Button --- */
+.bhr-edit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+}
+
+.bhr-edit-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* --- Pulse Animation --- */
+@keyframes bhr-pulse {
     0% {
-        transform: scale(1);
-        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4);
     }
 
-    50% {
-        transform: scale(1.1);
-        opacity: 0.8;
+    70% {
+        box-shadow: 0 0 0 6px rgba(245, 166, 35, 0);
     }
 
     100% {
-        transform: scale(1);
-        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(245, 166, 35, 0);
     }
 }
 
-.bhr-toast {
-    position: fixed;
-    bottom: 60px;
-    right: 20px;
-    padding: 10px 14px;
-    border-radius: 8px;
-    background: #323232;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    opacity: 0;
-    transform: translateY(4px);
-    transition: all 0.3s ease;
-    z-index: 999999999;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+.pulse .bhr-status-dot {
+    animation: bhr-pulse 2s infinite;
 }
 
-.bhr-bubble {
+/* --- Toast Notification --- */
+.bhr-toast {
     position: fixed;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    bottom: 20px;
-    right: 60px;
-    opacity: 0.8;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #323232;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 2147483647;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
 }
 
-.bhr-bubble.animate {
-    animation: bhr-bubbleIsland 0.8s forwards;
-}
-
-@keyframes bhr-bubbleIsland {
-    0% {
-        transform: translateY(0) scale(0.6);
-        opacity: 1;
-    }
-
-    30% {
-        transform: translateY(-10px) scale(1.1);
-        opacity: 0.9;
-    }
-
-    60% {
-        transform: translateY(-25px) scale(0.9);
-        opacity: 0.7;
-    }
-
-    100% {
-        transform: translateY(-50px) scale(0.5);
-        opacity: 0;
-    }
-}
-
-.bhr-settings-panel {
+/* --- Glass HUD --- */
+.bhr-glass-hud {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    background: #202020;
-    color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    z-index: 999999999;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 24px 40px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    z-index: 2147483647;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
 }
 
-.bhr-settings-panel h3 {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 0;
+.bhr-glass-hud.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
-.bhr-settings-panel label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
+.bhr-glass-hud span {
+    color: white;
+    font-family: -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-.bhr-settings-panel input[type=number],
-.bhr-settings-panel select {
-    width: 100%;
-    padding: 4px 6px;
-    margin: 2px 0 10px 0;
-    border-radius: 4px;
-    border: none;
+/* Spinner */
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-left-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
-.bhr-settings-panel input[type=checkbox] {
-    margin-right: 6px;
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.bhr-btn {
-    padding: 6px 12px;
-    margin-left: 4px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 13px;
+/* Checkmark */
+.checkmark {
+    width: 40px;
+    height: 40px;
+    background: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.bhr-btn-primary {
-    background-color: #1e8e3e;
-    color: #fff;
-}
+@keyframes popIn {
+    from {
+        transform: scale(0);
+    }
 
-.bhr-btn-muted {
-    background-color: #555;
-    color: #fff;
+    to {
+        transform: scale(1);
+    }
 }
